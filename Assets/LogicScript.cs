@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIScript : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class UIScript : MonoBehaviour
 
     public int playerHP;
     public Text HPText;
+    public GameObject gameOverScreen;
 
     //void Start()
    // {
@@ -20,6 +22,10 @@ public class UIScript : MonoBehaviour
     {//dmgCalc can find us thanks to the tag
         playerHP--;
         HPText.text = playerHP.ToString();
+        if (playerHP <= 0)
+        {
+            gameOver();
+        }
     }
 
     [ContextMenu("Increase HP")]
@@ -27,5 +33,14 @@ public class UIScript : MonoBehaviour
     {//negative values to heal
         playerHP++;
         HPText.text = playerHP.ToString();
+    }
+
+    public void restartBattle(){//This might be the type of code to go from overworld
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void gameOver()
+    {
+        gameOverScreen.SetActive(true);
     }
 }
