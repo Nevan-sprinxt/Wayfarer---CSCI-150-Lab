@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    //private weapon currentWeapon; //Place holder for the player's current weapon, once weapon class is defined we can implement this
+    private Weapon equippedWeapon;
 
     public Player()
     {
