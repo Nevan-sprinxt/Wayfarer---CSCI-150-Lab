@@ -50,4 +50,10 @@ public abstract class Entity : MonoBehaviour
     {
         return defense;
     }
+
+    //testing functions
+    void killEntity()
+    {
+        currentHealth = 0;
+    }
 }
