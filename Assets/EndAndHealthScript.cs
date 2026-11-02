@@ -2,25 +2,34 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class UIScript : MonoBehaviour
+public class EndAndHealthScript : MonoBehaviour
 {
 
-    //public int dmgCalc;//this will let us grab dmg calcs mid game as long as we tag it, I'll figure out how to differentiate from hero to enemy later
-    //I'm hoping it's easy to call
+   // public Player play;
+   // public Slime slime;
 
     public int playerHP;
     public int enemyHP;
     public Text playerHPText;
     public Text enemyHPText;
 
+    public Text playerMaxHPText;
+    public Text enemyMaxHPText;
+
     public GameObject gameOverScreen;
     public GameObject battleWonScreen;
 
+
     //void Start()
-    // {
-    // dmgCalc = GameObect.FindGameObjectWithTag("dmgCalc").GetComponent<LogicScript>();
-    //Link once dmgCalc is made
+    //{
+    //   // hero.TryGetComponent<Player>(out Player HP);
+    //    playerHP = HP.getHp();
+    //    enemyHP = enemy.maxHealth;
+    //    playerHPText.text = playerHP.ToString();
+    //    enemyHPText.text = enemyHP.ToString();
     //}
+
+
 
     [ContextMenu("Lower HP")]//Allows you to test without game events
     public void alterHPText()//Placeholder, should take values from dmg calc in the future
@@ -36,7 +45,7 @@ public class UIScript : MonoBehaviour
     [ContextMenu("Lower enemy HP")]//Allows you to test without game events
     public void alterEnemyHPText()//Placeholder, should take values from dmg calc in the future
     {//dmgCalc can find us thanks to the tag
-        enemyHP--;
+        enemyHP-=20;
         enemyHPText.text = enemyHP.ToString();
         if (enemyHP <= 0)
         {
@@ -51,16 +60,27 @@ public class UIScript : MonoBehaviour
         playerHPText.text = playerHP.ToString();
     }
 
-    public void restartBattle(){//This might be the type of code to go from overworld to combat and vice versa
+    public void restartBattle()
+    {//This might be the type of code to go from overworld to combat and vice versa
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     //We can call these two from the dmgCalc
     //https://discussions.unity.com/t/best-way-to-get-variable-from-another-script-c-unity/720634/2
 
+    public void setMaxHero(string HP)
+    {
+        playerMaxHPText.text = HP;
+    }
+
+    public void setMaxEnemy(string HP)
+    {
+        enemyMaxHPText.text = HP;
+    }
+
     public void applyDmgToHero(int dmg)
     {
-        playerHP-=dmg;
+        playerHP -= dmg;
         playerHPText.text = playerHP.ToString();
         if (playerHP <= 0)
         {
