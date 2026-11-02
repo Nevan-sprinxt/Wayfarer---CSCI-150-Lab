@@ -41,6 +41,11 @@ public abstract class Entity : MonoBehaviour
         return currentHealth;
     }
 
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
+
     public int getDefense()
     {
         return defense;
