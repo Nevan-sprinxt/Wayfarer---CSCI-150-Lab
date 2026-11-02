@@ -83,7 +83,7 @@ public class BattleMenuManager : MonoBehaviour
 
     public void OnAttackSelected()
     {
-        UpdateCombatLog("Player used Attack!");
+        UpdateCombatLog("Player punched the enemy! It was ineffective and now your hand hurts.");
         // Add attack state logic 
         // Should also proceed to combat turn resolution
         OpenCombatMenu();
@@ -114,7 +114,7 @@ public class BattleMenuManager : MonoBehaviour
 
     public void OnFleeButtonClicked()
     {
-        UpdateCombatLog("Player attempted to flee!");
+        UpdateCombatLog("Player rolled a d20 and failed the flee check!");
     }
 
     private void PopulateInventoryUI()
