@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &721314395411973997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2596330653231452283}
+  - component: {fileID: 4553426883174706756}
+  - component: {fileID: 7934300463084854219}
+  m_Layer: 0
+  m_Name: CombatSceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2596330653231452283
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721314395411973997}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4553426883174706756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721314395411973997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b53271e11d292f04d9ba458fc56e1082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TurnBasedCombatManager
+--- !u!114 &7934300463084854219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721314395411973997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e4b71dd5547524ba637effdd16e4f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleMenuManager
+  settingsMenu: {fileID: 0}
+  combatMenu: {fileID: 0}
+  abilitiesSubmenu: {fileID: 0}
+  actionsSubmenu: {fileID: 0}
+  itemsSubmenu: {fileID: 0}
+  abilityNames:
+  - Ability1
+  - Ability2
+  - Ability3
+  - Ability4
+  combatLogText: {fileID: 0}
+  maxLogLines: 5
+  itemButtonContainer: {fileID: 0}
+  itemButtonPrefab: {fileID: 1433140567777730866, guid: ed59e3788081d5d4a8dd1efe74ca35e0, type: 3}
+  playerInventory:
+  - Ugly Stick
+  - Nice Stick
+  - Subpar Stick
+  - Premium Stick
