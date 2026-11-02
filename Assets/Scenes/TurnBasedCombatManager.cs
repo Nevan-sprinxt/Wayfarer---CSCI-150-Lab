@@ -34,6 +34,7 @@ public class TurnBasedCombatManager : MonoBehaviour
         StartCoroutine(EnemyTurn());
     }
 
+    //System.Collections.IEnumerator EnemyTurn(string attackPattern) //Need to use this string or game will crash
     System.Collections.IEnumerator EnemyTurn()
     {
         Debug.Log("Enemy Attacks!");

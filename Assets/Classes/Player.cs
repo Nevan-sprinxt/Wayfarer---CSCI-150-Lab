@@ -12,9 +12,4 @@ public class Player : Entity
         currentHealth = 55;
         defense = 5;
     }
-    void Start()
-    {
-        display.applyDmgToHero(-currentHealth);
-        display.setMaxHero(maxHealth.ToString());
-    }
 }

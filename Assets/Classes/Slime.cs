@@ -14,10 +14,4 @@ public class Slime : Enemy
         isBoss = false; //Indicates that this enemy is not a boss
         attackPattern = "Basic"; //Placeholder for the slime's attack pattern
     }
-
-    void Start()
-    {
-        display.applyDmgToEnemy(-currentHealth);
-        display.setMaxEnemy(maxHealth.ToString());
-    }
 }
