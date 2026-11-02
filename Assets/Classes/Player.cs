@@ -9,7 +9,7 @@ public class Player : Entity
     public Player()
     {
         maxHealth = 100;
-        currentHealth = maxHealth;
+        currentHealth = 55;
         defense = 5;
     }
     void Start()

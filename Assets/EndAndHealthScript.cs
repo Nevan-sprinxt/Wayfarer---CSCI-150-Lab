@@ -20,17 +20,6 @@ public class EndAndHealthScript : MonoBehaviour
     public GameObject battleWonScreen;
 
 
-    //void Start()
-    //{
-    //   // hero.TryGetComponent<Player>(out Player HP);
-    //    playerHP = HP.getHp();
-    //    enemyHP = enemy.maxHealth;
-    //    playerHPText.text = playerHP.ToString();
-    //    enemyHPText.text = enemyHP.ToString();
-    //}
-
-
-
     [ContextMenu("Lower HP")]//Allows you to test without game events
     public void alterHPText()//Placeholder, should take values from dmg calc in the future
     {//dmgCalc can find us thanks to the tag
