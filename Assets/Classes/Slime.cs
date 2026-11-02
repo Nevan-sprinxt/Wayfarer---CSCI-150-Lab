@@ -4,6 +4,8 @@ public class Slime : Enemy
 {
     //Dont know if there will be a slime enemy this is just a placeholder to show how to define a basic enemy subclass
 
+    public EndAndHealthScript display;
+
     public Slime()
     {
         maxHealth = 50;
@@ -13,4 +15,9 @@ public class Slime : Enemy
         attackPattern = "Basic"; //Placeholder for the slime's attack pattern
     }
 
+    void Start()
+    {
+        display.applyDmgToEnemy(-currentHealth);
+        display.setMaxEnemy(maxHealth.ToString());
+    }
 }
