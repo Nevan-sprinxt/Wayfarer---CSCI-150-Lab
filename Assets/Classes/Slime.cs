@@ -8,6 +8,7 @@ public class Slime : Enemy
 
     public Slime()
     {
+        attack = 5;
         maxHealth = 50;
         currentHealth = maxHealth;
         defense = 1;

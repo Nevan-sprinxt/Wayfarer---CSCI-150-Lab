@@ -4,6 +4,7 @@ public abstract class Entity : MonoBehaviour
 {
     //Initial stats of the entity, do we want status effects and modifiers to effect these or be applied elsewhere?
     //Serialized field makes it visible and editable in the Unity Inspector while keeping it protected in code
+    [SerializeField] protected int attack;
     [SerializeField] protected int abilityStrength; //Effects how strong the entity's abilities are
     [SerializeField] protected int abilityRange; //Effects how far the entity's abilities can reach
     [SerializeField] protected int abilityEfficiency; //Effects how efficiently the entity uses its abilities, meaning might consume less resources
