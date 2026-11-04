@@ -120,7 +120,7 @@ public class TestingScript : MonoBehaviour
 
     public void FindPlayer()
     {
-        playerObject = FindObjectOfType<Player>();
+        playerObject = FindAnyObjectByType<Player>();
         if (playerObject == null)
         {
             Debug.LogError("Player object not found in the scene.");
@@ -129,7 +129,7 @@ public class TestingScript : MonoBehaviour
 
     public void FindEnemies()
     {
-        enemies = FindObjectsByType<Enemy>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        enemies = FindObjectsByType<Enemy>();
         if (enemies.Length == 0)
         {
             Debug.LogError("No enemy objects found in the scene.");
