@@ -2,19 +2,15 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    //private weapon currentWeapon; //Place holder for the player's current weapon, once weapon class is defined we can implement this
+    private Weapon equippedWeapon;
 
     public EndAndHealthScript display;
 
     public Player()
     {
+        attack = 0;
         maxHealth = 100;
         currentHealth = 55;
         defense = 5;
-    }
-    void Start()
-    {
-        display.applyDmgToHero(-currentHealth);
-        display.setMaxHero(maxHealth.ToString());
     }
 }

@@ -6,6 +6,7 @@ public class BossEnemy : Enemy
 
     public BossEnemy()
     {
+        attack = 20;
         isBoss = true; //Indicates that this enemy is a boss
         maxHealth = 500;
         currentHealth = maxHealth;
