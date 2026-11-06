@@ -2,7 +2,10 @@ using UnityEngine;
 
 public abstract class Enemy : Entity
 {
-    protected string attackPattern; //Place holder for the enemy's attack pattern, we need to determine how to define this
+    [Header("Enemy Behavior")]
+    [SerializeField] protected string attackPattern = "Aggressive";
+
+    //protected string attackPattern; //Place holder for the enemy's attack pattern, we need to determine how to define this
     protected bool isBoss; //Indicates whether the enemy is a boss or not
 
     public bool getIsBoss() //Function that checks if the enemy is a boss, important for flee function later to determine if player can flee from this enemy
@@ -10,4 +13,8 @@ public abstract class Enemy : Entity
         return isBoss;
     }
     
+    public string getAttackPattern()
+    {
+        return attackPattern;
+    }
 }
