@@ -7,6 +7,8 @@ public class Weapon : ScriptableObject
     [SerializeField] protected int level;
     [SerializeField] protected int weaponAttack; 
     [SerializeField] protected int weaponDefense;
+    [SerializeField] protected double weaponCritRate;
+    [SerializeField] protected double weaponCritDamage;
     [SerializeField] protected int maxStrain;
     [SerializeField] protected const int baseRuneSlots = 8;
     [SerializeField] private Rune[] runeSlots = new Rune[baseRuneSlots];
@@ -20,10 +22,19 @@ public class Weapon : ScriptableObject
         maxStrain = 0;
     }
 
-    public int getWeaponAttack()
+    public Weapon(string name, int atk, int def, double critRate, double critDmg)
     {
-        return weaponAttack;
+        weaponName = name;
+        weaponAttack = atk;
+        weaponDefense = def;
+        weaponCritRate = critRate;
+        weaponCritDamage = critDmg;
     }
+
+    public int getWeaponAttack() { return weaponAttack; }
+    public int getWeaponDefense() { return weaponDefense; }
+    public double getWeaponCritRate() { return weaponCritRate; }
+    public double getWeaponCritDamage() { return weaponCritDamage; }
 
     public void calcMaxStrain(int level) //Function that calculates the maximum strain of the weapon based on its level, this is a placeholder for now until we determine how to calculate it
     {

@@ -20,6 +20,7 @@ public abstract class Entity : MonoBehaviour
     public void takeDamage(int damage) //Function that will later use CalculateDamage() to determine the actual damage taken
     {
         currentHealth -= damage;
+        currentHealth = Mathf.Max(0, currentHealth);
     }
 
     public void heal(int amount) //Function that heals the entity by the passsed in amount usually determined by items or abilities
@@ -57,16 +58,16 @@ public abstract class Entity : MonoBehaviour
         return maxHealth;
     }
 
-    public int getDefense()
+    public virtual int getDefense()
     {
         return defense;
     }
 
-    public double getCritDamage()
+    public virtual double getCritDamage()
     {
         return critDamage;
     }
-    public double getCritRate()
+    public virtual double getCritRate()
     {
         return critRate;
     }

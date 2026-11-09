@@ -38,6 +38,9 @@ public class BattleMenuManager : MonoBehaviour
     [Header("Player Reference")]
     [SerializeField] private Player player; // Assign your Player GameObject in the Inspector
 
+    [Header("UI Reference")]
+    [SerializeField] private EndAndHealthScript endAndHealthScript;
+
     [Header("Combat Buffs")]
     [SerializeField] private double defenseMultiplier = 1.50; // 1.50x defense boost
     private int originalDefense = 0;
@@ -55,8 +58,8 @@ public class BattleMenuManager : MonoBehaviour
     IEnumerator SetupBattle()
     {
         Debug.Log("BattleMenuManager: SetupBattle() coroutine started.");
+        yield return new WaitForSeconds(1f);
         UpdateCombatLog("The enemy has appeared! Quick, respond to the threat!");
-        yield return new WaitForSeconds(2f);
 
         state = CombatState.PLAYERTURN;
         PlayerTurn();
@@ -86,10 +89,8 @@ public class BattleMenuManager : MonoBehaviour
     public void OpenCombatMenu()
     {
         Debug.Log("BattleMenuManager: OpenCombatMenu() called.");
-        combatMenu.SetActive(true);
-        abilitiesSubmenu.SetActive(false);
-        actionsSubmenu.SetActive(false);
-        itemsSubmenu.SetActive(false);
+        CloseAllSubmenus(); 
+        if (combatMenu != null) combatMenu.SetActive(true);
     }
 
     public void OpenAbilitiesSubmenu()
@@ -100,10 +101,8 @@ public class BattleMenuManager : MonoBehaviour
             Debug.LogWarning("BattleMenuManager: Ignored OpenAbilitiesSubmenu - not player's turn.");
             return;
         }
-        combatMenu.SetActive(false);
-        abilitiesSubmenu.SetActive(true);
-        actionsSubmenu.SetActive(false);
-        itemsSubmenu.SetActive(false);
+        CloseAllSubmenus(); 
+        if (abilitiesSubmenu != null) abilitiesSubmenu.SetActive(true);
     }
 
     public void OpenActionsSubmenu()
@@ -114,10 +113,8 @@ public class BattleMenuManager : MonoBehaviour
             Debug.LogWarning("BattleMenuManager: Ignored OpenActionsSubmenu - not player's turn.");
             return;
         }
-        combatMenu.SetActive(false);
-        abilitiesSubmenu.SetActive(false);
-        actionsSubmenu.SetActive(true);
-        itemsSubmenu.SetActive(false);
+        CloseAllSubmenus(); 
+        if (actionsSubmenu != null) actionsSubmenu.SetActive(true);
     }
 
     public void OpenItemsSubmenu()
@@ -128,10 +125,8 @@ public class BattleMenuManager : MonoBehaviour
             Debug.LogWarning("BattleMenuManager: Ignored OpenItemsSubmenu - not player's turn.");
             return;
         }
-        combatMenu.SetActive(false);
-        abilitiesSubmenu.SetActive(false);
-        actionsSubmenu.SetActive(false);
-        itemsSubmenu.SetActive(true);
+        CloseAllSubmenus(); 
+        if (itemsSubmenu != null) itemsSubmenu.SetActive(true);
         PopulateInventoryUI();
     }
 
@@ -139,6 +134,17 @@ public class BattleMenuManager : MonoBehaviour
     {
         Debug.Log("BattleMenuManager: OnAttackSelected() called.");
         if (state != CombatState.PLAYERTURN) return;
+
+        if (player == null) // Safety check for null reference
+        {
+            Debug.LogError("BattleMenuManager: 'player' reference is NULL! Assign it in the Inspector.");
+            return;
+        }
+        if (activeEnemy == null)
+        {
+            Debug.LogError("BattleMenuManager: 'activeEnemy' reference is NULL! Assign an Enemy in the Inspector or runtime setup.");
+            return;
+        }
 
         // 1. Fetch stats for the calculation
         int initiatorAtk = player.getAttack();
@@ -170,20 +176,35 @@ public class BattleMenuManager : MonoBehaviour
         // 3. Apply the damage using Entity's takeDamage() method
         activeEnemy.takeDamage(finalDamage);
 
+        endAndHealthScript.UpdateUI();
+
         // 4. Log results and update combat UI text
-        UpdateCombatLog($"Player attacked enemy for {finalDamage} damage! Enemy HP: {activeEnemy.getCurrentHealth()}");
+        //UpdateCombatLog($"Player attacked enemy for {finalDamage} damage! Enemy HP: {activeEnemy.getCurrentHealth()}");
 
         // 5. Check if the enemy has been defeated
         if (activeEnemy.getCurrentHealth() <= 0)
         {
             state = CombatState.WON;
             UpdateCombatLog("You have defeated the enemy!");
+            if (endAndHealthScript != null)
+            {
+                endAndHealthScript.battleWon(); 
+            }
             CloseAllSubmenus();
             return;
         }
 
-        UpdateCombatLog("Player punched the enemy! It was ineffective and now your hand hurts.");
-        // Add attack state logic 
+        if (player.GetEquippedWeapon() == null)
+        {
+            // Unarmed attack log
+            UpdateCombatLog($"You hit the enemy with your bare hands! Punching armor hurts your hand... (Dealt {finalDamage} damage)");
+        }
+        else
+        {
+            // Weapon attack log
+            string weaponName = player.GetEquippedWeapon().name;
+            UpdateCombatLog($"You strike the enemy with your {weaponName} dealing {finalDamage} damage! Enemy HP: {activeEnemy.getCurrentHealth()}");
+        }
         // Should also proceed to combat turn resolution
         StartCoroutine(ProcessEnemyTurnAfterAction());
     }
@@ -255,8 +276,8 @@ public class BattleMenuManager : MonoBehaviour
             return;
         }
 
-        UpdateCombatLog("Player rolled a d20 and failed the flee check!");
-        //StartCoroutine(ProcessEnemyTurnAfterAction());
+        UpdateCombatLog("Player rolled a d20 and failed the flee check!"); // Add random chance check, discuss what that chance should be
+        StartCoroutine(ProcessEnemyTurnAfterAction());
     }
 
     private void PopulateInventoryUI()
@@ -298,6 +319,7 @@ public class BattleMenuManager : MonoBehaviour
         if (state != CombatState.PLAYERTURN) return;
 
         UpdateCombatLog($"Player used item: {itemName}!");
+        endAndHealthScript.UpdateUI();
         playerInventory.Remove(itemName); // Remove item from inventory
         OpenCombatMenu();
     }
@@ -305,6 +327,13 @@ public class BattleMenuManager : MonoBehaviour
     private IEnumerator ProcessEnemyTurnAfterAction()
     {
         Debug.Log("BattleMenuManager: ProcessEnemyTurnAfterAction() started.");
+
+        if (activeEnemy == null) // Safety check for null reference
+        {
+            Debug.LogError("BattleMenuManager: 'activeEnemy' is null! Please assign an Enemy object in the Inspector.");
+            yield break;
+        }
+
         CloseAllSubmenus();
         state = CombatState.ENEMYTURN;
 
@@ -348,11 +377,17 @@ public class BattleMenuManager : MonoBehaviour
         // Reset player defense buff for the next round
         isPlayerDefending = false;
 
+        endAndHealthScript.UpdateUI();
+
         // 4. Check win/loss state
         if (player.getCurrentHealth() <= 0)
         {
             state = CombatState.LOST;
             UpdateCombatLog("Player has been defeated...");
+            if (endAndHealthScript != null)
+            {
+                endAndHealthScript.gameOver(); 
+            }
             yield break;
         }
 
