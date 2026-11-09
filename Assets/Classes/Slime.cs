@@ -6,12 +6,25 @@ public class Slime : Enemy
 
     public EndAndHealthScript display;
 
+    private void Awake()
+    {
+        maxHealth = 300;
+        currentHealth = 275;
+        defense = 30;
+        attack = 200;
+        attackPattern = "Squishy Bounce";
+        isBoss = false;
+    }
+
+    /*
     public Slime()
     {
+        attack = 5;
         maxHealth = 50;
         currentHealth = maxHealth;
         defense = 1;
         isBoss = false; //Indicates that this enemy is not a boss
         attackPattern = "Basic"; //Placeholder for the slime's attack pattern
     }
+    */
 }

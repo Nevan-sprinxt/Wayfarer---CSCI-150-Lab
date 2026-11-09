@@ -52,6 +52,18 @@ public class EndAndHealthScript : MonoBehaviour
         }
     }
 
+    public void UpdateUI()
+    {
+        if (play != null)
+        {
+            playerHPText.text = play.getCurrentHealth().ToString();
+        }
+        if (slime != null)
+        {
+            enemyHPText.text = slime.getCurrentHealth().ToString();
+        }
+    }
+
     public void restartBattle()
     {//This might be the type of code to go from overworld to combat and vice versa
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
