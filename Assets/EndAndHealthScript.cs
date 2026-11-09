@@ -54,9 +54,9 @@ public class EndAndHealthScript : MonoBehaviour
 
     public void UpdateUI()
     {
-        if (play != null)
+        if (wayfarer != null)
         {
-            playerHPText.text = play.getCurrentHealth().ToString();
+            playerHPText.text = wayfarer.getCurrentHealth().ToString();
         }
         if (slime != null)
         {
