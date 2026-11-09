@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class EndAndHealthScript : MonoBehaviour
 {
 
-   public Player play;
+   public Player wayfarer;
    public Slime slime;
 
 
@@ -22,19 +22,20 @@ public class EndAndHealthScript : MonoBehaviour
     {
         gameOverScreen.SetActive(false);
         battleWonScreen.SetActive(false);
-        setMaxHero(play.getMaxHealth().ToString());
-        playerHPText.text = play.getCurrentHealth().ToString();
+        setMaxHero(wayfarer.getMaxHealth().ToString());
+        playerHPText.text = wayfarer.getCurrentHealth().ToString();
         setMaxEnemy(slime.getMaxHealth().ToString());
         enemyHPText.text = slime.getCurrentHealth().ToString();
+        Debug.Log(playerHPText);
     }
 
 
     [ContextMenu("Lower HP")]//Allows you to test without game events
     public void alterHPText()//Placeholder, should take values from dmg calc in the future
     {//dmgCalc can find us thanks to the tag
-        play.takeDamage(20);
-        playerHPText.text = play.getCurrentHealth().ToString();
-        if (play.getCurrentHealth() <= 0)
+        wayfarer.takeDamage(20);
+        playerHPText.text = wayfarer.getCurrentHealth().ToString();
+        if (wayfarer.getCurrentHealth() <= 0)
         {
             gameOver();
         }
@@ -53,9 +54,9 @@ public class EndAndHealthScript : MonoBehaviour
 
     public void UpdateUI()
     {
-        if (play != null)
+        if (wayfarer != null)
         {
-            playerHPText.text = play.getCurrentHealth().ToString();
+            playerHPText.text = wayfarer.getCurrentHealth().ToString();
         }
         if (slime != null)
         {
