@@ -5,21 +5,22 @@ public abstract class Entity : MonoBehaviour
     //Initial stats of the entity, do we want status effects and modifiers to effect these or be applied elsewhere?
     //Serialized field makes it visible and editable in the Unity Inspector while keeping it protected in code
     [SerializeField] protected int attack;
-    [SerializeField] protected int abilityStrength; //Effects how strong the entity's abilities are
-    [SerializeField] protected int abilityRange; //Effects how far the entity's abilities can reach
-    [SerializeField] protected int abilityEfficiency; //Effects how efficiently the entity uses its abilities, meaning might consume less resources
-    [SerializeField] protected int abilityPrecision; //Effects...
+    [SerializeField] protected double abilityStrength; //Effects how strong the entity's abilities are
+    [SerializeField] protected double abilityRange; //Effects how far the entity's abilities can reach
+    [SerializeField] protected double abilityEfficiency; //Effects how efficiently the entity uses its abilities, meaning might consume less resources
+    [SerializeField] protected double abilityPrecision; //Effects...
     [SerializeField] protected int currentHealth;
     [SerializeField] protected int defense; //Reduces incoming damage
     [SerializeField] protected int maxHealth;
     [SerializeField] protected int ond; //Games magic or mana points/energy of the entity
     [SerializeField] protected double critRate; //Effects the critical hit chance of the entity
-    [SerializeField] protected int critDamage; //Effects the critical hit damage of the entity
+    [SerializeField] protected double critDamage; //Effects the critical hit damage of the entity
 
     //Functions that handle health
     public void takeDamage(int damage) //Function that will later use CalculateDamage() to determine the actual damage taken
     {
         currentHealth -= damage;
+        currentHealth = Mathf.Max(0, currentHealth);
     }
 
     public void heal(int amount) //Function that heals the entity by the passsed in amount usually determined by items or abilities
@@ -43,6 +44,10 @@ public abstract class Entity : MonoBehaviour
     }
 
     //These functions are for retrieving data entity's current state
+    public virtual int getAttack() //NG need this for dmgCalc
+    {
+        return attack;
+    }
     public int getCurrentHealth()
     {
         return currentHealth;
@@ -53,36 +58,36 @@ public abstract class Entity : MonoBehaviour
         return maxHealth;
     }
 
-    public int getDefense()
+    public virtual int getDefense()
     {
         return defense;
     }
 
-    public int getCritDamage()
+    public virtual double getCritDamage()
     {
         return critDamage;
     }
-    public double getCritRate()
+    public virtual double getCritRate()
     {
         return critRate;
     }
 
-    public int getAbilityStrength()
+    public double getAbilityStrength()
     {
         return abilityStrength;
     }
 
-    public int getAbilityRange()
+    public double getAbilityRange()
     {
         return abilityRange;
     }
 
-    public int getAbilityEfficiency()
+    public double getAbilityEfficiency()
     {
         return abilityEfficiency;
     }
 
-    public int getAbilityPrecision()
+    public double getAbilityPrecision()
     {
         return abilityPrecision;
     }
