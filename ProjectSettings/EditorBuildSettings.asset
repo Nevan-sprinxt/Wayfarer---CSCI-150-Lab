@@ -5,8 +5,20 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Liam scenes/TitleScreenProto.unity
+    guid: 632facafe76241542a2b11c33dd5efe0
+  - enabled: 1
+    path: Assets/Liam scenes/OverworldProto.unity
+    guid: 85b7b1d2e23c38e4ab0c7652ae01a94e
+  - enabled: 0
+    path: Assets/Liam scenes/combinedScene.unity
+    guid: 18325d550ed6c024081b163bfedd856a
+  - enabled: 1
+    path: Assets/Scenes/Combat Scene NG.unity
+    guid: 45852102d68ec4944a329387aedf55f4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
