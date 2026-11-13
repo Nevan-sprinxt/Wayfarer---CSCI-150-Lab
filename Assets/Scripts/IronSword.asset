@@ -16,7 +16,7 @@ MonoBehaviour:
   level: 1
   weaponAttack: 50
   weaponDefense: 15
-  weaponCritRate: 0.5
+  weaponCritRate: 0.25
   weaponCritDamage: 2
   maxStrain: 60
   runeSlots:
