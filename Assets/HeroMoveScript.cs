@@ -23,8 +23,6 @@ public class HeroMoveScript : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");//Should be both ad and arrows
         movement.y = Input.GetAxisRaw("Vertical");//Should be both ws and arrows
       //  HeroBody.linearVelocity = 0;
-
-        movement = Vector2.ClampMagnitude(movement, 1f);
     }
 
     void FixedUpdate()//Does not depend on framerate, movement
