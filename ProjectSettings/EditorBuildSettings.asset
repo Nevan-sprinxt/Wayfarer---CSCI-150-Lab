@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Combat Scene NG.unity
     guid: 45852102d68ec4944a329387aedf55f4
+  - enabled: 1
+    path: Assets/Liam scenes/SaveRoom.unity
+    guid: 3b4527d9328da0c4fbf63b7d3ade373d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
