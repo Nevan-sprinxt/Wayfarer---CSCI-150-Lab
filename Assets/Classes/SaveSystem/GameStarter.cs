@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class GameStarter : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private SaveController saveController;
+    [SerializeField] private SceneChangeScript sceneChanger;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        if (saveController.HasSaveFile)
+        {
+            saveController.LoadGame();
+        }
+        else
+        {
+            sceneChanger.ChangeSceneByName("OverworldProto");
+        }
     }
 }
