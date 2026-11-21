@@ -1,17 +1,28 @@
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class SaveController : MonoBehaviour
 {
     [SerializeField] private Player playerObject;
+    [SerializeField] private SceneChangeScript sceneChanger;
 
     private string saveFolder => Path.Combine(Application.persistentDataPath, "WayfarerSaves");
     private string SavePath => Path.Combine(saveFolder, "save.json");
     private string DefaultPath => Path.Combine(saveFolder, "defaultSave.json");
+    public bool HasSaveFile => File.Exists(SavePath);
 
     private void Start()
     {
         Directory.CreateDirectory(saveFolder);
+        
+        playerObject = Player.Instance;
+
+        if (playerObject == null)
+        {
+            Debug.LogError("Player not found!");
+            return;
+        }
 
         // Create the default once, using the player's starting state.
         if (!File.Exists(DefaultPath))
@@ -31,6 +42,7 @@ public class SaveController : MonoBehaviour
 
         data.playerHealth = playerObject.getCurrentHealth();
         data.playerPosition = playerObject.transform.position;
+        data.scene = SceneManager.GetActiveScene().name;
 
         return data;
     }
@@ -41,10 +53,14 @@ public class SaveController : MonoBehaviour
         Directory.CreateDirectory(saveFolder);
 
         SaveData data = CapturePlayerData();
-        string json = JsonUtility.ToJson(data, true);
 
+        Debug.Log("Saving scene: " + data.scene);
+        Debug.Log("Saving position: " + data.playerPosition);
+
+        string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(SavePath, json);
-        Debug.Log("Game saved!");
+
+        Debug.Log("Saved to: " + SavePath);
     }
 
     public void LoadGame()
@@ -55,13 +71,29 @@ public class SaveController : MonoBehaviour
             return;
         }
 
+        playerObject = Player.Instance;
+
+        if (playerObject == null || sceneChanger == null)
+        {
+            Debug.LogError("Player or SceneChanger not found!");
+            return;
+        }
+
         string json = File.ReadAllText(SavePath);
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-        playerObject.setHealth(data.playerHealth);
-        playerObject.transform.position = data.playerPosition;
+        if (data == null)
+        {
+            Debug.LogError("Could not read save data!");
+            return;
+        }
 
-        Debug.Log("Game loaded!");
+        playerObject.setHealth(data.playerHealth);
+
+        // Load the scene, then restore the saved position
+        sceneChanger.LoadSavedScene(data.scene, data.playerPosition);
+
+        Debug.Log("Loading saved position: " + data.playerPosition);
     }
 
     public void ResetToDefault()

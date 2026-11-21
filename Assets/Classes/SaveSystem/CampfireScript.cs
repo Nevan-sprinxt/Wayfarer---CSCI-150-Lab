@@ -3,6 +3,10 @@ using UnityEngine;
 public class CampfireScript : MonoBehaviour
 {
     [SerializeField] private SaveController saveController;
+    private void Start()
+    {
+        saveController = FindAnyObjectByType<SaveController>();
+    }
 
     private bool playerInRange;
 
@@ -11,7 +15,7 @@ public class CampfireScript : MonoBehaviour
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             saveController.SaveGame();
-            Debug.Log("Saved at campfire!");
+            //Debug.Log("Saved at campfire!");
         }
     }
 
@@ -20,6 +24,7 @@ public class CampfireScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+            //Debug.Log("Player entered campfire range!");
         }
     }
 
@@ -28,6 +33,7 @@ public class CampfireScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            //Debug.Log("Player left campfire range!");
         }
     }
 }

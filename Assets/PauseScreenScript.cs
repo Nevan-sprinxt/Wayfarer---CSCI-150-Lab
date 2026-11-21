@@ -2,33 +2,49 @@ using UnityEngine;
 
 public class PauseScreenScript : MonoBehaviour
 {
-    public GameObject pauseScreen;
-    public HeroMoveScript player;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private GameObject pauseScreen;
+
+    private HeroMoveScript playerMover;
+
     void Start()
     {
+        if (Player.Instance == null)
+        {
+            Debug.LogError("Player Instance Not Found");
+            return;
+        }
+
+        playerMover = Player.Instance.GetComponentInChildren<HeroMoveScript>();
+
+        if (playerMover == null)
+        {
+            Debug.LogError("PlayerMover Not Found");
+            return;
+        }
+
+        if (pauseScreen == null)
+        {
+            Debug.LogError("PauseScreen Not Assigned");
+            return;
+        }
+
         pauseScreen.SetActive(false);
-        player.setPaused(false);
+        playerMover.setPaused(false);
     }
 
-    // Update is called once per frame
     void Update()
-    { 
+    {
+        if (playerMover == null || pauseScreen == null)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("ESC pressed");   
-            if (pauseScreen.activeSelf)
-            {
-                Debug.Log("set false");
-                player.setPaused(false);
-                pauseScreen.SetActive(false);
-            }
-            else
-            {
-                Debug.Log("set true");
-                player.setPaused(true);
-                pauseScreen.SetActive(true);
-            }
+            Debug.Log("ESC pressed");
+
+            bool isPaused = !pauseScreen.activeSelf;
+
+            playerMover.setPaused(isPaused);
+            pauseScreen.SetActive(isPaused);
         }
     }
 }
