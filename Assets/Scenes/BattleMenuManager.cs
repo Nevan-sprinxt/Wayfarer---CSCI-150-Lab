@@ -8,6 +8,7 @@ using UnityEngine;
 public class BattleMenuManager : MonoBehaviour
 {
     private enum CombatState { START, PLAYERTURN, ENEMYTURN, DAMAGESTEP, WON, LOST }
+    public SceneChangeScript change;
 
     [Header("Combat State")]
     [SerializeField] private CombatState state;
@@ -284,6 +285,8 @@ public class BattleMenuManager : MonoBehaviour
             UpdateCombatLog("Player successfully escaped from battle!");
             state = CombatState.WON; // Or handle your scene transition/combat exit here
             CloseAllSubmenus();
+            change.ChangeSceneByName("OverworldProto");
+            Debug.LogError("Change fail");
         }
         else
         {
