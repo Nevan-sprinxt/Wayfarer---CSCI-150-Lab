@@ -32,5 +32,7 @@ public class HeroMoveScript : MonoBehaviour
     public void setPaused(bool setBool)
     {
         paused = setBool;
+        movement.x = 0;
+        movement.y = 0;
     }
 }
