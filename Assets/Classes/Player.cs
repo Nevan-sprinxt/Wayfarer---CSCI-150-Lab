@@ -11,9 +11,6 @@ public class Player : Entity
     //Stuff to preserve data between scenes
     private void Awake()
     {
-       // if (instance == null)
-       // {
-         //   instance = this;
             maxHealth = 600;
 
             // Sustained Damage Check: Only initialize to max health if it hasn't been set yet
