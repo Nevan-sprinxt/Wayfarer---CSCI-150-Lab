@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class PauseScreenScript : MonoBehaviour
+    //Purpose of this script is to activate the pause screen and stop player movement, what it displays depends on the scene
 {
     public GameObject pauseScreen;
     public HeroMoveScript player;
@@ -14,16 +15,16 @@ public class PauseScreenScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))//Pause button
         {
             Debug.Log("ESC pressed");   
-            if (pauseScreen.activeSelf)
+            if (pauseScreen.activeSelf)//If pause screen is already visable
             {
                 Debug.Log("set false");
                 player.setPaused(false);
                 pauseScreen.SetActive(false);
             }
-            else
+            else//Pause screen was off
             {
                 Debug.Log("set true");
                 player.setPaused(true);
