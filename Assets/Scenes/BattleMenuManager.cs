@@ -8,6 +8,7 @@ using UnityEngine;
 public class BattleMenuManager : MonoBehaviour
 {
     private enum CombatState { START, PLAYERTURN, ENEMYTURN, DAMAGESTEP, WON, LOST }
+    public SceneChangeScript change;
 
     [Header("Combat State")]
     [SerializeField] private CombatState state;
@@ -276,8 +277,23 @@ public class BattleMenuManager : MonoBehaviour
             return;
         }
 
-        UpdateCombatLog("Player rolled a d20 and failed the flee check!"); // Add random chance check, discuss what that chance should be
-        StartCoroutine(ProcessEnemyTurnAfterAction());
+        // 1-in-5 chance to escape (20% / 0.2)
+        bool escapeSuccess = UnityEngine.Random.value <= 0.2f;
+
+        if (escapeSuccess)
+        {
+            UpdateCombatLog("Player successfully escaped from battle!");
+            state = CombatState.WON; // Or handle your scene transition/combat exit here
+            CloseAllSubmenus();
+            change.ChangeSceneByName("OverworldProto");
+            Debug.LogError("Change fail");
+        }
+        else
+        {
+            UpdateCombatLog("Player rolled a d20 and failed the flee check!"); // Add random chance check, discuss what that chance should be
+            // Proceed to enemy turn since the flee action failed
+            StartCoroutine(ProcessEnemyTurnAfterAction());
+        }
     }
 
     private void PopulateInventoryUI()

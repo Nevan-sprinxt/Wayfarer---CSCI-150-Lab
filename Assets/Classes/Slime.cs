@@ -3,6 +3,9 @@ using UnityEngine;
 public class Slime : Enemy
 {
     //Dont know if there will be a slime enemy this is just a placeholder to show how to define a basic enemy subclass
+    [Header("Slime Combat Stats")]
+    [SerializeField] private double slimeCritRate = 0.15;   // 15% crit chance (0.15)
+    [SerializeField] private double slimeCritDamage = 2.0;  // 2.0x crit multiplier
 
     public EndAndHealthScript display;
 
@@ -14,6 +17,9 @@ public class Slime : Enemy
         attack = 200;
         attackPattern = "Squishy Bounce";
         isBoss = false;
+
+        critRate = slimeCritRate;
+        critDamage = slimeCritDamage;
     }
 
     /*

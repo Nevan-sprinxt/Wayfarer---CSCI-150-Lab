@@ -1,53 +1,106 @@
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class SaveController : MonoBehaviour
 {
     [SerializeField] private Player playerObject;
+    [SerializeField] private SceneChangeScript sceneChanger;
+
+    private string saveFolder => Path.Combine(Application.persistentDataPath, "WayfarerSaves");
+    private string SavePath => Path.Combine(saveFolder, "save.json");
+    private string DefaultPath => Path.Combine(saveFolder, "defaultSave.json");
+    public bool HasSaveFile => File.Exists(SavePath);
+
+    private void Start()
+    {
+        Directory.CreateDirectory(saveFolder);
+        
+        playerObject = Player.Instance;
+
+        if (playerObject == null)
+        {
+            Debug.LogError("Player not found!");
+            return;
+        }
+
+        // Create the default once, using the player's starting state.
+        if (!File.Exists(DefaultPath))
+        {
+            SaveData defaultData = CapturePlayerData();
+
+            string json = JsonUtility.ToJson(defaultData, true);
+            File.WriteAllText(DefaultPath, json);
+        }
+
+        LoadGame();
+    }
+
+    private SaveData CapturePlayerData()
+    {
+        SaveData data = new SaveData();
+
+        data.playerHealth = playerObject.getCurrentHealth();
+        data.playerPosition = playerObject.transform.position;
+        data.scene = SceneManager.GetActiveScene().name;
+
+        return data;
+    }
+
 
     public void SaveGame()
     {
-        SaveData data = new SaveData(); //Create instance of SaveData class
-
-        data.playerHealth = playerObject.getCurrentHealth(); //Store current health in SaveData instance
-        data.playerPosition = playerObject.transform.position; //Store current position in SaveData instance
-
-        string json = JsonUtility.ToJson(data, true); //Convert SaveData instance to JSON string
-        Debug.Log(json);
-
-        // Choose the folder location.
-        string saveFolder = Path.Combine(Application.persistentDataPath, "WayfarerSaves");
-
-        // Create the folder if it doesn't already exist.
         Directory.CreateDirectory(saveFolder);
 
-        string path = Path.Combine(saveFolder, "save.json"); //This line sets the path
-        File.WriteAllText(path, json); //Write JSON string to file. This line actually creates the file
+        SaveData data = CapturePlayerData();
+
+        Debug.Log("Saving scene: " + data.scene);
+        Debug.Log("Saving position: " + data.playerPosition);
+
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(SavePath, json);
+
+        Debug.Log("Saved to: " + SavePath);
     }
 
     public void LoadGame()
     {
-        // For demonstration purposes, we will create a JSON string manually.
-        // In a real scenario, you would load this from a file or PlayerPrefs.
-        string path = Path.Combine(Application.persistentDataPath, "WayfarerSaves", "save.json");
-        Debug.Log("Loading from: " + path);
-
-        // Check if the file exists before attempting to read it
-        if (!File.Exists(path))
+        if (!File.Exists(SavePath))
         {
             Debug.Log("No save file found.");
             return;
         }
 
-        string json = File.ReadAllText(path); //Read JSON file
-        SaveData data = JsonUtility.FromJson<SaveData>(json); //Convert JSON string back to SaveData instance
+        playerObject = Player.Instance;
 
-        playerObject.setHealth(data.playerHealth); //Set player's health from loaded data
-        playerObject.transform.position = data.playerPosition; //Set player's position from loaded data
+        if (playerObject == null || sceneChanger == null)
+        {
+            Debug.LogError("Player or SceneChanger not found!");
+            return;
+        }
+
+        string json = File.ReadAllText(SavePath);
+        SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+        if (data == null)
+        {
+            Debug.LogError("Could not read save data!");
+            return;
+        }
+
+        playerObject.setHealth(data.playerHealth);
+
+        // Load the scene, then restore the saved position
+        sceneChanger.LoadSavedScene(data.scene, data.playerPosition);
+
+        Debug.Log("Loading saved position: " + data.playerPosition);
     }
 
-    public void Start()
+    public void ResetToDefault()
     {
-        string path = Path.Combine(Application.persistentDataPath, "WayfarerSaves", "save.json");
+        // Overwrite the working save with the default.
+        File.Copy(DefaultPath, SavePath, true);
+
+        LoadGame();
     }
 }
