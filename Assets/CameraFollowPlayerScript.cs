@@ -19,7 +19,7 @@ public class CameraFollowPlayerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = Player.Instance;
+        player = Player.Instance;//To try and preserve player between scenes
     }
 
     // Update is called once per frame
