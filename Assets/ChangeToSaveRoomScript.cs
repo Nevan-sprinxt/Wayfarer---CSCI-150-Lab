@@ -6,7 +6,7 @@ public class ChangeToSaveRoomScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        change = FindAnyObjectByType<SceneChangeScript>();
     }
 
     // Update is called once per frame
@@ -19,7 +19,10 @@ public class ChangeToSaveRoomScript : MonoBehaviour
     {
         //Put name of scene you want to switch to here and make sure
         //to add it to the build profile
-        change.ChangeSceneByName("SaveRoom");
+        if (collision.CompareTag("Player"))
+        {
+            change.ChangeSceneByName("SaveRoom");
+        }
         // Debug.Log("YAP");
     }
 }

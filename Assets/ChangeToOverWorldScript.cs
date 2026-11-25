@@ -6,7 +6,8 @@ public class ChangeToOverWorldScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        change = FindAnyObjectByType<SceneChangeScript>();
+        if(change == null) Debug.Log("Scene Changer not found");
     }
 
     // Update is called once per frame
