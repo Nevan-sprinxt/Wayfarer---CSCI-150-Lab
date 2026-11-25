@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraFollowPlayerScript : MonoBehaviour
 {
-    public Transform target;      // Drag your player here
+    public Player player; 
     public Vector3 offset;        // Camera distance from the player
     public float smoothTime = 0.25f; // Time taken to catch up to the player
 
@@ -19,17 +19,17 @@ public class CameraFollowPlayerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        player = Player.Instance;
     }
 
     // Update is called once per frame
 
     void Update()
     {
-    if (target != null)
+    if (player != null)
          {
              // Calculate desired position
-         Vector3 targetPosition = target.position + offset;
+         Vector3 targetPosition = player.transform.position + offset;
 
              // Smoothly move the camera to that position
          transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);

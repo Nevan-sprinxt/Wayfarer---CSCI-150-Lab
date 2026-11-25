@@ -6,7 +6,7 @@ public class GenericEnemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        change = FindAnyObjectByType<SceneChangeScript>();
     }
 
     // Update is called once per frame
