@@ -18,6 +18,9 @@ public class EndAndHealthScript : MonoBehaviour
     public GameObject gameOverScreen;
     public GameObject battleWonScreen;
 
+    [SerializeField]
+    private PauseInfoScript pauseInfoScript;//We will update the pause menu when we update the UI
+
     void Start()
     {
         gameOverScreen.SetActive(false);
@@ -57,6 +60,8 @@ public class EndAndHealthScript : MonoBehaviour
         if (wayfarer != null)
         {
             playerHPText.text = wayfarer.getCurrentHealth().ToString();
+            pauseInfoScript.refresh();//Update the pause menu
+
         }
         if (slime != null)
         {

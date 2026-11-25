@@ -11,18 +11,18 @@ public class Player : Entity
 
     private void Awake()
     {
-        maxHealth = 600;
+            maxHealth = 600;
 
-        // Sustained Damage Check: Only initialize to max health if it hasn't been set yet
-        if (currentHealth <= 0)
-        {
-            currentHealth = maxHealth;
-        }
+            // Sustained Damage Check: Only initialize to max health if it hasn't been set yet
+            if (currentHealth <= 0)
+            {
+                currentHealth = maxHealth;
+            }
 
-        attack = 0;
-        defense = 150;
-        critRate = 0;
-        critDamage = 0;
+            attack = 0;
+            defense = 150;
+            critRate = 0;
+            critDamage = 0;
 
         abilityStrength =   1.00;
         abilityEfficiency = 1.00;

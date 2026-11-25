@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class PauseScreenScript : MonoBehaviour
+    //Purpose of this script is to activate the pause screen and stop player movement, what it displays depends on the scene
 {
     [SerializeField] private GameObject pauseScreen;
 
