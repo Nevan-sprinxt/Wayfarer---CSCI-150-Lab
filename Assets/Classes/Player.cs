@@ -7,13 +7,10 @@ public class Player : Entity
 
     public EndAndHealthScript display;
 
-   // public static Player instance;
-    //Stuff to preserve data between scenes
+    public static Player Instance { get; private set; }
+
     private void Awake()
     {
-       // if (instance == null)
-       // {
-         //   instance = this;
             maxHealth = 600;
 
             // Sustained Damage Check: Only initialize to max health if it hasn't been set yet
@@ -27,13 +24,19 @@ public class Player : Entity
             critRate = 0;
             critDamage = 0;
 
-            abilityStrength = 1.00;
-            abilityEfficiency = 1.00;
-            abilityRange = 1.00;
-            abilityPrecision = 1.00;
-            ond = 100;
-         //   DontDestroyOnLoad(gameObject);//Should preserve the instance between scenes
-       // }
+        abilityStrength =   1.00;
+        abilityEfficiency = 1.00;
+        abilityRange =      1.00;
+        abilityPrecision =  1.00;
+        ond = 100;
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
     }
 
     private void Start()
