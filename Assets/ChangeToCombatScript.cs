@@ -3,6 +3,18 @@ using UnityEngine;
 public class ChangeToCombatScript : MonoBehaviour
 {
     public SceneChangeScript change;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        change = FindAnyObjectByType<SceneChangeScript>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Put name of scene you want to switch to here and make sure
