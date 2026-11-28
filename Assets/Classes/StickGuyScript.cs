@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class StickGuyScript : MonoBehaviour
 {
     public Text yapping;
-    public StickGuy SG = new StickGuy();
+    public StickGuy SG=new StickGuy();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

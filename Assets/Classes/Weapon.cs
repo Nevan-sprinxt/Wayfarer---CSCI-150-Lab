@@ -31,7 +31,6 @@ public class Weapon : ScriptableObject
         weaponCritDamage = critDmg;
     }
 
-    public string getWeaponName() { return weaponName; }
     public int getWeaponAttack() { return weaponAttack; }
     public int getWeaponDefense() { return weaponDefense; }
     public double getWeaponCritRate() { return weaponCritRate; }
