@@ -5,8 +5,8 @@ public class PauseScreenScript : MonoBehaviour
 {
     [SerializeField] private GameObject pauseScreen;
 
-    private HeroMoveScript playerMover;
-
+    //private HeroMoveScript playerMover;
+    public HeroMoveScript playerMover;
     void Start()
     {
         if (Player.Instance == null)
@@ -15,12 +15,13 @@ public class PauseScreenScript : MonoBehaviour
             return;
         }
 
-        playerMover = Player.Instance.GetComponentInChildren<HeroMoveScript>();
+        //playerMover = Player.Instance.GetComponentInChildren<HeroMoveScript>();
+        //Player instance isn't working right now
 
         if (playerMover == null)
         {
             Debug.LogError("PlayerMover Not Found");
-            return;
+          //  return;
         }
 
         if (pauseScreen == null)
@@ -35,8 +36,10 @@ public class PauseScreenScript : MonoBehaviour
 
     void Update()
     {
-        if (playerMover == null || pauseScreen == null)
-            return;
+        //if (playerMover == null || pauseScreen == null)
+        //{
+        //    return;
+        //}
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -44,6 +47,7 @@ public class PauseScreenScript : MonoBehaviour
 
             bool isPaused = !pauseScreen.activeSelf;
 
+            //Not sure what playerMover is
             playerMover.setPaused(isPaused);
             pauseScreen.SetActive(isPaused);
         }

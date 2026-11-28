@@ -57,14 +57,16 @@ public class EndAndHealthScript : MonoBehaviour
 
     public void UpdateUI()
     {
+        Debug.Log("Try to update UI");
         if (wayfarer != null)
         {
             playerHPText.text = wayfarer.getCurrentHealth().ToString();
-            pauseInfoScript.refresh();//Update the pause menu
 
+            pauseInfoScript.refresh();//Update the pause menu
         }
         if (slime != null)
         {
+            Debug.Log("Update enemy");
             enemyHPText.text = slime.getCurrentHealth().ToString();
         }
     }

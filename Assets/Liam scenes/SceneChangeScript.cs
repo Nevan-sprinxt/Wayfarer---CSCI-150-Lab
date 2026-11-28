@@ -24,12 +24,18 @@ public class SceneChangeScript : MonoBehaviour
     }
     */
 
-    public void ChangeSceneByName(string sceneName)
+    //public void ChangeSceneByName(string sceneName)
+    //{
+    //    StartCoroutine(ChangeScene(sceneName, null));
+    //} 
+    //I don't know why you changed this when it worked before and you ended up making a different scene change
+    //Function anyways
+    public void ChangeSceneByName(string name)
     {
-        StartCoroutine(ChangeScene(sceneName, null));
+        SceneManager.LoadScene(name);
     }
 
-        public void LoadSavedScene(string sceneName, Vector3 savedPosition)
+    public void LoadSavedScene(string sceneName, Vector3 savedPosition)
     {
         StartCoroutine(ChangeScene(sceneName, savedPosition));
     }

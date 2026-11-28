@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 5817284141312815923}
   - component: {fileID: 1089467607123894952}
   - component: {fileID: 4427111939803087212}
-  - component: {fileID: 231840558244246638}
+  - component: {fileID: 4195184456357834425}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -442,7 +442,7 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &231840558244246638
+--- !u!114 &4195184456357834425
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -451,13 +451,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8079889307468798303}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23838b36a9f07f84b9f12f4d4bb13cdc, type: 3}
+  m_Script: {fileID: 11500000, guid: c590de0fa0a95f14cbb32c17a68acee8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  target: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollowPlayerScript
+  player: {fileID: 0}
   offset: {x: 0, y: 0, z: -10}
-  smoothTime: 0.001
-  leftLimit: 90
-  rightLimit: 110
+  smoothTime: 0.25
+  leftLimit: 100
+  rightLimit: 120
   bottomLimit: 100
-  topLimit: 109
+  topLimit: 110

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5347217963862737926}
   - component: {fileID: 6919995792862053448}
-  - component: {fileID: 7780198521989380184}
+  - component: {fileID: 3140957388071554500}
   m_Layer: 0
   m_Name: SaveRoom transition
   m_TagString: Untagged
@@ -79,7 +79,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.76, y: 1.89}
   m_EdgeRadius: 0
---- !u!114 &7780198521989380184
+--- !u!114 &3140957388071554500
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3166169205752983117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 530d05788203f4b499180f0e3cf41f76, type: 3}
+  m_Script: {fileID: 11500000, guid: a6a6045183c463e42959b79494fd46b3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::ChangeToSaveRoomScript
   change: {fileID: 0}

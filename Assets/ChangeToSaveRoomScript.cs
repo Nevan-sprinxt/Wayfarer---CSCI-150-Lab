@@ -19,10 +19,10 @@ public class ChangeToSaveRoomScript : MonoBehaviour
     {
         //Put name of scene you want to switch to here and make sure
         //to add it to the build profile
-        if (collision.CompareTag("Player"))
-        {
+       // if (collision.CompareTag("Player"))
+       // {
             change.ChangeSceneByName("SaveRoom");
-        }
-        // Debug.Log("YAP");
+       // }
+        Debug.Log("WHY WOULD YOU CHANGE THIS");
     }
 }
