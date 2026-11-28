@@ -9,13 +9,13 @@ public class InfoTextScript : MonoBehaviour
 
     private void OnMouseEnter(PointerEventData pointerEventData)
     {
-        MoreInfoScript._instance.SetTrueAndChange(message);
+       // MoreInfoScript._instance.SetTrueAndChange(message);
         Debug.Log("Mouse entered");
     }
 
     private void OnMouseExit(PointerEventData pointerEventData)
     {
-        MoreInfoScript._instance.SetFalseAndReset();
+       // MoreInfoScript._instance.SetFalseAndReset();
         Debug.Log("Mouse exited");
     }
 }
